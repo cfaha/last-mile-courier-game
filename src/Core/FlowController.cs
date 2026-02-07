@@ -22,6 +22,7 @@ public partial class FlowController : MonoBehaviour
     public ToastUI ToastUI;
     public TutorialScript TutorialScript;
     public MainMenuUI MainMenuUI;
+    public LevelResultPanel LevelResultPanel;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -145,5 +146,9 @@ public partial class FlowController : MonoBehaviour
         }
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score, coins);
+        if (DeliveryProcessor != null && LevelResultPanel != null)
+        {
+            LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score);
+        }
     }
 }

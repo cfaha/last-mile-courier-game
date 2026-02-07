@@ -10,6 +10,10 @@ public class ShopUI : MonoBehaviour
 
     public void Build(ShopItem[] items)
     {
+        foreach (Transform child in ListRoot)
+        {
+            Object.Destroy(child.gameObject);
+        }
         foreach (var item in items)
         {
             var ui = Object.Instantiate(ItemPrefab, ListRoot);
@@ -30,6 +34,6 @@ public class ShopUI : MonoBehaviour
     {
         bool ok = ShopSystem != null && ShopSystem.Buy(item, CurrencySystem);
         ToastUI?.Show(ok ? "购买成功" : "余额不足");
-        // TODO: refresh UI state
+        LoadAndBuild();
     }
 }
