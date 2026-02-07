@@ -25,6 +25,7 @@ public partial class FlowController : MonoBehaviour
     public LevelResultPanel LevelResultPanel;
     public TimeStats TimeStats;
     public StatsReporter StatsReporter;
+    public NewbieFlow NewbieFlow;
 
     public TextAsset LevelConfigJson;
     public TextAsset EventWeightsJson;
@@ -55,11 +56,7 @@ public partial class FlowController : MonoBehaviour
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
             MainMenuUI?.BindTask(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
-        TutorialScript?.ShowForLevel(CurrentLevelId);
-        if (CurrentLevelId == 1)
-        {
-            FindObjectOfType<TutorialSteps>()?.StartSteps();
-        }
+        NewbieFlow?.StartFlow(CurrentLevelId);
         MainMenuUI?.BindProgress(CurrentLevelId);
     }
 
@@ -166,7 +163,7 @@ public partial class FlowController : MonoBehaviour
         StatsReporter?.ReportLevel(CurrentLevelId, score, coins);
         if (DeliveryProcessor != null && LevelResultPanel != null)
         {
-            LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score);
+            LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score, CurrentLevelId);
             LevelResultPanel.BindDetail(ScoringSystem.OnTimeRate, ScoringSystem.RouteEfficiency);
         }
         if (TimeStats != null && TimerSystem != null)

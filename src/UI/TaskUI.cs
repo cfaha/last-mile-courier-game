@@ -9,4 +9,9 @@ public class TaskUI : MonoBehaviour
     {
         if (TaskText != null) TaskText.text = $"每日任务：完成 {completed}/{target} 单";
     }
+
+    private void Start()
+    {
+        // placeholder for auto bind
+    }
 }

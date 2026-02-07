@@ -8,6 +8,11 @@ public class ShopUI : MonoBehaviour
     public ShopItemUI ItemPrefab;
     public TextAsset ShopJson;
 
+    private void Start()
+    {
+        LoadAndBuild();
+    }
+
     public void Build(ShopItem[] items)
     {
         foreach (Transform child in ListRoot)

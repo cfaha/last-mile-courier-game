@@ -6,13 +6,15 @@ public class LevelResultPanel : MonoBehaviour
     public Text SummaryText;
     public Text DetailText;
     public Text TimeText;
+    public Text LevelText;
 
-    public void Bind(int delivered, int total, float score)
+    public void Bind(int delivered, int total, float score, int levelId = 0)
     {
         if (SummaryText != null)
         {
             SummaryText.text = $"完成 {delivered}/{total} 评分 {score:F2}";
         }
+        if (LevelText != null && levelId > 0) LevelText.text = $"关卡 {levelId}";
     }
 
     public void BindDetail(float onTime, float efficiency)
