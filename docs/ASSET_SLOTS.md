@@ -7,3 +7,6 @@
 
 ## Toast 动画
 - 可选：简单淡入淡出
+
+## 评分图标
+- S/A/B/C 图标用于 ResultUI.RatingIconUI

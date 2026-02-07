@@ -25,6 +25,7 @@ public class ResultUI : MonoBehaviour
         BindButtons(HintText, failed);
         if (NextButton != null) NextButton.interactable = !failed;
         if (ReplayButton != null) ReplayButton.interactable = true;
+        HighlightButtons(failed);
         if (FailText != null) FailText.text = failed ? "失败：未完成全部订单" : "";
         if (StateText != null) StateText.text = failed ? "失败" : "成功";
     }
@@ -46,6 +47,12 @@ public class ResultUI : MonoBehaviour
         {
             hint.text = failed ? "失败时可重玩" : "可进入下一关";
         }
+    }
+
+    private void HighlightButtons(bool failed)
+    {
+        if (NextButton != null) NextButton.transform.localScale = failed ? Vector3.one * 0.9f : Vector3.one * 1.05f;
+        if (ReplayButton != null) ReplayButton.transform.localScale = failed ? Vector3.one * 1.05f : Vector3.one * 0.95f;
     }
 
     public void HideHint(UnityEngine.UI.Text hint)
