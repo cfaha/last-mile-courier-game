@@ -69,31 +69,35 @@ fun App() {
                     MapView(engine.orders, engine.currentOrderId())
                     LazyColumn(modifier = Modifier.weight(1f)) {
                         items(engine.orders) { o ->
-                            Card(Modifier.fillMaxWidth().padding(4.dp)) {
+                            val idx = engine.orders.indexOfFirst { it.id == o.id }
+                            Card(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(4.dp)
+                                    .then(draggableReorder(
+                                        index = idx,
+                                        onMoveUp = {
+                                            if (idx > 0) {
+                                                val tmp = engine.orders[idx - 1]
+                                                engine.orders[idx - 1] = engine.orders[idx]
+                                                engine.orders[idx] = tmp
+                                            }
+                                        },
+                                        onMoveDown = {
+                                            if (idx >= 0 && idx < engine.orders.size - 1) {
+                                                val tmp = engine.orders[idx + 1]
+                                                engine.orders[idx + 1] = engine.orders[idx]
+                                                engine.orders[idx] = tmp
+                                            }
+                                        }
+                                    ))
+                            ) {
                                 Row(Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
                                     Text("#${o.id} ${o.type}")
                                     Spacer(Modifier.width(8.dp))
                                     Text("${o.distanceKm}km / ${o.timeLimit}s")
                                     Spacer(Modifier.weight(1f))
                                     Text(if (o.delivered) "已送" else "待送", color = if (o.delivered) Color.Green else Color.Gray)
-                                    Spacer(Modifier.width(8.dp))
-                                    Text("↑", modifier = Modifier.clickable {
-                                        val idx = engine.orders.indexOfFirst { it.id == o.id }
-                                        if (idx > 0) {
-                                            val tmp = engine.orders[idx - 1]
-                                            engine.orders[idx - 1] = engine.orders[idx]
-                                            engine.orders[idx] = tmp
-                                        }
-                                    })
-                                    Spacer(Modifier.width(6.dp))
-                                    Text("↓", modifier = Modifier.clickable {
-                                        val idx = engine.orders.indexOfFirst { it.id == o.id }
-                                        if (idx >= 0 && idx < engine.orders.size - 1) {
-                                            val tmp = engine.orders[idx + 1]
-                                            engine.orders[idx + 1] = engine.orders[idx]
-                                            engine.orders[idx] = tmp
-                                        }
-                                    })
                                 }
                             }
                         }
