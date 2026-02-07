@@ -1,0 +1,5 @@
+{
+  "residential": {"gate":0.6,"rain":0.25,"traffic":0.15},
+  "commercial": {"gate":0.4,"rain":0.3,"traffic":0.3},
+  "industrial": {"gate":0.2,"rain":0.4,"traffic":0.4}
+}

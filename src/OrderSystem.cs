@@ -35,13 +35,19 @@ public class OrderSystem : MonoBehaviour
         }
     }
 
+    public OrderWeightsConfig Weights;
+
     private OrderType PickOrderType()
     {
         float r = Random.value;
-        if (r < 0.6f) return OrderType.Normal;
-        if (r < 0.75f) return OrderType.Fresh;
-        if (r < 0.87f) return OrderType.Insured;
-        if (r < 0.95f) return OrderType.Large;
+        float n = Weights != null ? Weights.normal : 0.6f;
+        float f = Weights != null ? Weights.fresh : 0.15f;
+        float i = Weights != null ? Weights.insured : 0.12f;
+        float l = Weights != null ? Weights.large : 0.08f;
+        if (r < n) return OrderType.Normal;
+        if (r < n + f) return OrderType.Fresh;
+        if (r < n + f + i) return OrderType.Insured;
+        if (r < n + f + i + l) return OrderType.Large;
         return OrderType.Night;
     }
 

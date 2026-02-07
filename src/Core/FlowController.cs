@@ -26,6 +26,8 @@ public partial class FlowController : MonoBehaviour
     public TimeStats TimeStats;
 
     public TextAsset LevelConfigJson;
+    public TextAsset EventWeightsJson;
+    public TextAsset OrderWeightsJson;
     public int CurrentLevelId = 1;
     public int MaxLevelId = 20;
     private LevelConfig _currentLevel;
@@ -101,8 +103,16 @@ public partial class FlowController : MonoBehaviour
 
         if (EventSystem != null)
         {
+            if (EventWeightsJson != null)
+            {
+                EventSystem.ApplyWeights(ConfigLoader.LoadEventWeights(EventWeightsJson));
+            }
             EventSystem.EventChancePerMinute = eventChance;
             if (_currentLevel != null) EventSystem.Zone = _currentLevel.zone;
+        }
+        if (OrderSystem != null && OrderWeightsJson != null)
+        {
+            OrderSystem.Weights = ConfigLoader.LoadOrderWeights(OrderWeightsJson);
         }
         OrderSystem.GenerateOrders(orders, timeLimit);
         UIController.ShowRoutePlanning();

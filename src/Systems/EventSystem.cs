@@ -8,6 +8,14 @@ public class EventSystem : MonoBehaviour
     public ZoneEventWeights Commercial = new ZoneEventWeights { Gate = 0.4f, Rain = 0.3f, Traffic = 0.3f };
     public ZoneEventWeights Industrial = new ZoneEventWeights { Gate = 0.2f, Rain = 0.4f, Traffic = 0.4f };
 
+    public void ApplyWeights(EventWeightsConfig cfg)
+    {
+        if (cfg == null) return;
+        Residential = cfg.residential;
+        Commercial = cfg.commercial;
+        Industrial = cfg.industrial;
+    }
+
     public System.Action<string, string, float, float> OnEvent;
 
     private float _timer;
