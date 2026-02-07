@@ -16,10 +16,12 @@ public partial class FlowController : MonoBehaviour
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
+    public int MaxLevelId = 20;
     private LevelConfig _currentLevel;
 
     private void Start()
     {
+        CurrentLevelId = SaveManager.LoadLevel(1);
         StartPlanning();
         HookEvents();
     }

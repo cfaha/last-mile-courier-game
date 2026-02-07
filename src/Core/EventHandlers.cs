@@ -36,7 +36,13 @@ public partial class FlowController
 
     public void NextLevel()
     {
+        if (CurrentLevelId >= MaxLevelId)
+        {
+            Debug.Log("All levels completed");
+            return;
+        }
         CurrentLevelId += 1;
+        SaveManager.SaveLevel(CurrentLevelId);
         StartPlanning();
     }
 }

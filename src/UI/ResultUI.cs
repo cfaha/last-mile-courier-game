@@ -21,4 +21,9 @@ public class ResultUI : MonoBehaviour
     {
         FlowController?.NextLevel();
     }
+
+    public void OnReplay()
+    {
+        FlowController?.StartPlanning();
+    }
 }
