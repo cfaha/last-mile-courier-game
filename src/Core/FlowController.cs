@@ -18,6 +18,8 @@ public partial class FlowController : MonoBehaviour
     public CurrencyUI CurrencyUI;
     public TaskSystem TaskSystem;
     public TaskUI TaskUI;
+    public TaskRewardUI TaskRewardUI;
+    public TutorialScript TutorialScript;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -43,6 +45,7 @@ public partial class FlowController : MonoBehaviour
             TaskSystem.ResetDailyIfNeeded(DayStamp.Today());
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
+        TutorialScript?.ShowForLevel(CurrentLevelId);
     }
 
     private void HookEvents()
@@ -132,6 +135,7 @@ public partial class FlowController : MonoBehaviour
         if (TaskSystem != null && TaskSystem.IsDailyDone())
         {
             CurrencySystem?.AddCoins(200);
+            TaskRewardUI?.Show("每日任务完成 +200");
         }
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score, coins);

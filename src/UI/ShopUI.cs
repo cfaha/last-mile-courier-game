@@ -6,6 +6,7 @@ public class ShopUI : MonoBehaviour
     public CurrencySystem CurrencySystem;
     public Transform ListRoot;
     public ShopItemUI ItemPrefab;
+    public TextAsset ShopJson;
 
     public void Build(ShopItem[] items)
     {
@@ -14,6 +15,13 @@ public class ShopUI : MonoBehaviour
             var ui = Object.Instantiate(ItemPrefab, ListRoot);
             ui.Bind(item);
         }
+    }
+
+    public void LoadAndBuild()
+    {
+        if (ShopJson == null) return;
+        var items = ShopConfig.Load(ShopJson);
+        Build(items);
     }
 
     public void OnBuy(ShopItem item)
