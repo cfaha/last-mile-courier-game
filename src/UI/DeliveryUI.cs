@@ -21,9 +21,16 @@ public class DeliveryUI : MonoBehaviour
         Debug.Log($"Event: {title} - {desc}");
     }
 
+    public FlowController FlowController;
+
     public void OnClickDeliverNext(DeliverySimulator simulator, DeliverySequence sequence)
     {
         simulator?.DeliverNext();
         if (sequence != null) UpdateRemaining(sequence.Remaining);
+    }
+
+    public void OnClickFinish()
+    {
+        FlowController?.FinishDelivery();
     }
 }

@@ -27,8 +27,10 @@ public class RoutePlanningUI : MonoBehaviour
         DragController?.SetOrders(ids);
     }
 
+    public FlowController FlowController;
+
     public void OnStartDelivery()
     {
-        // TODO: start delivery flow
+        FlowController?.StartDelivery();
     }
 }
