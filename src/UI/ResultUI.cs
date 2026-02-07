@@ -24,6 +24,7 @@ public class ResultUI : MonoBehaviour
     public void OnNextLevel()
     {
         FlowController?.NextLevel();
+        FindObjectOfType<MainMenuUI>()?.BindProgress(FlowController != null ? FlowController.CurrentLevelId : 0);
     }
 
     public void OnReplay()

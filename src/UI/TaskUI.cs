@@ -12,6 +12,10 @@ public class TaskUI : MonoBehaviour
 
     private void Start()
     {
-        // placeholder for auto bind
+        var flow = FindObjectOfType<FlowController>();
+        if (flow != null && flow.TaskSystem != null)
+        {
+            Bind(flow.TaskSystem.DailyCompleted, flow.TaskSystem.DailyDeliveriesTarget);
+        }
     }
 }
