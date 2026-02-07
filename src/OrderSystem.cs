@@ -16,6 +16,7 @@ public class OrderSystem : MonoBehaviour
             int timeLimit = overrideTimeLimit > 0 ? overrideTimeLimit : Random.Range(180, 420);
             float distance = Random.Range(0.5f, 3.0f);
             var type = PickOrderType();
+            timeLimit -= GetTypeTimePenalty(type);
             int reward = 100 + (int)(distance * 30f) + GetTypeBonus(type);
 
             ActiveOrders.Add(new OrderData
@@ -52,6 +53,17 @@ public class OrderSystem : MonoBehaviour
             case OrderType.Insured: return 30;
             case OrderType.Large: return 40;
             case OrderType.Night: return 25;
+            default: return 0;
+        }
+    }
+
+    private int GetTypeTimePenalty(OrderType type)
+    {
+        switch (type)
+        {
+            case OrderType.Fresh: return 30;
+            case OrderType.Night: return 20;
+            case OrderType.Large: return 15;
             default: return 0;
         }
     }
