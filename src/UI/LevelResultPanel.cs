@@ -14,7 +14,8 @@ public class LevelResultPanel : MonoBehaviour
     {
         if (SummaryText != null)
         {
-            SummaryText.text = $"完成 {delivered}/{total} 评分 {score:F2}";
+            float rate = total > 0 ? (float)delivered / total : 0f;
+            SummaryText.text = $"完成 {delivered}/{total} 评分 {score:F2} 达成率 {rate:P0}";
         }
         if (LevelText != null && levelId > 0) LevelText.text = $"关卡 {levelId}";
         if (TotalCoinText != null && totalCoins >= 0) TotalCoinText.text = $"金币 {totalCoins}";

@@ -133,6 +133,7 @@ public partial class FlowController : MonoBehaviour
         if (DeliverySimulator != null)
         {
             DeliverySimulator.Orders = OrderSystem.RuntimeOrders;
+            DeliverySimulator.ResetNodeColors();
         }
         if (MapPlaceholder != null && DeliverySequence != null)
         {

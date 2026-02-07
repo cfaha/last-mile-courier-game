@@ -16,6 +16,7 @@ public class DeliverySimulator : MonoBehaviour
     public MapNodeLabel[] MapLabels;
     public Color PendingColor = Color.gray;
     public Color DeliveredColor = Color.white;
+    public OrderListController OrderListController;
 
     public void DeliverNext()
     {
@@ -36,6 +37,7 @@ public class DeliverySimulator : MonoBehaviour
             MainMenuUI?.BindTask(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
         HighlightNode(orderId.Value);
+        OrderListController?.MarkDelivered(orderId.Value);
         OnDelivered?.Invoke(orderId.Value);
         if (Sequence != null && Sequence.Remaining <= 0)
         {
@@ -51,6 +53,15 @@ public class DeliverySimulator : MonoBehaviour
         if (label != null && label.Dot != null)
         {
             label.Dot.color = DeliveredColor;
+        }
+    }
+
+    public void ResetNodeColors()
+    {
+        if (MapLabels == null) return;
+        foreach (var label in MapLabels)
+        {
+            if (label != null && label.Dot != null) label.Dot.color = PendingColor;
         }
     }
 
