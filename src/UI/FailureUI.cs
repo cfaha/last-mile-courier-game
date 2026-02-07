@@ -9,6 +9,8 @@ public class FailureUI : MonoBehaviour
     {
         if (Text != null) Text.text = msg;
         gameObject.SetActive(true);
+        CancelInvoke(nameof(Hide));
+        Invoke(nameof(Hide), 2f);
     }
 
     public void Hide()

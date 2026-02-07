@@ -160,8 +160,9 @@ public partial class FlowController : MonoBehaviour
             TaskSystem.MarkRewardClaimed();
             ToastUI?.Show("每日任务完成 +200");
         }
+        bool failed = DeliveryProcessor != null && DeliveryProcessor.IsFailed();
         UIController.ShowResult();
-        UIController.ResultUI.ShowResult(score, coins);
+        UIController.ResultUI.ShowResult(score, coins, failed);
         StatsReporter?.ReportLevel(CurrentLevelId, score, coins);
         if (DeliveryProcessor != null && LevelResultPanel != null)
         {

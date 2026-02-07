@@ -7,10 +7,11 @@ public class ResultUI : MonoBehaviour
     public Text RatingText;
     public Text HintText;
     public RatingIconUI RatingIconUI;
+    public UnityEngine.UI.Button NextButton;
 
     public FlowController FlowController;
 
-    public void ShowResult(float score, int coins)
+    public void ShowResult(float score, int coins, bool failed)
     {
         string rating = RatingHelper.GetRating(score);
         Debug.Log($"Result score={score:F2} rating={rating} coins={coins}");
@@ -19,6 +20,7 @@ public class ResultUI : MonoBehaviour
         if (RatingText != null) RatingText.text = rating;
         RatingIconUI?.Bind(rating);
         BindButtons(HintText);
+        if (NextButton != null) NextButton.interactable = !failed;
     }
 
     public void OnNextLevel()
