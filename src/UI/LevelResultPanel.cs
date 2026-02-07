@@ -5,6 +5,7 @@ public class LevelResultPanel : MonoBehaviour
 {
     public Text SummaryText;
     public Text DetailText;
+    public Text TimeText;
 
     public void Bind(int delivered, int total, float score)
     {
@@ -20,5 +21,10 @@ public class LevelResultPanel : MonoBehaviour
         {
             DetailText.text = $"准时率 {onTime:P0} / 效率 {efficiency:P0}";
         }
+    }
+
+    public void BindTime(int seconds)
+    {
+        if (TimeText != null) TimeText.text = $"耗时 {seconds}s";
     }
 }

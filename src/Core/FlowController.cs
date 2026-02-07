@@ -52,6 +52,10 @@ public partial class FlowController : MonoBehaviour
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
         TutorialScript?.ShowForLevel(CurrentLevelId);
+        if (CurrentLevelId == 1)
+        {
+            FindObjectOfType<TutorialSteps>()?.StartSteps();
+        }
         MainMenuUI?.BindProgress(CurrentLevelId);
     }
 
@@ -155,6 +159,7 @@ public partial class FlowController : MonoBehaviour
         if (TimeStats != null && TimerSystem != null)
         {
             TimeStats.SetUsed(TimerSystem.TotalSeconds - TimerSystem.RemainingSeconds);
+            LevelResultPanel?.BindTime(TimeStats.UsedSeconds);
         }
     }
 }
