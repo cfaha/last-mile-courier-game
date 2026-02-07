@@ -7,13 +7,13 @@ public class OrderSystem : MonoBehaviour
 
     public OrderRuntime[] RuntimeOrders;
 
-    public void GenerateOrders(int count)
+    public void GenerateOrders(int count, int overrideTimeLimit = -1)
     {
         ActiveOrders.Clear();
         RuntimeOrders = new OrderRuntime[count];
         for (int i = 0; i < count; i++)
         {
-            int timeLimit = Random.Range(180, 420);
+            int timeLimit = overrideTimeLimit > 0 ? overrideTimeLimit : Random.Range(180, 420);
             float distance = Random.Range(0.5f, 3.0f);
             ActiveOrders.Add(new OrderData
             {

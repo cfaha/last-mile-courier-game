@@ -11,6 +11,10 @@ public class FlowController : MonoBehaviour
     public DeliveryProcessor DeliveryProcessor;
     public DeliverySequence DeliverySequence;
     public DeliverySimulator DeliverySimulator;
+    public MapPlaceholder MapPlaceholder;
+
+    public TextAsset LevelConfigJson;
+    public int CurrentLevelId = 1;
 
     private void Start()
     {
@@ -45,7 +49,13 @@ public class FlowController : MonoBehaviour
 
     public void StartPlanning()
     {
-        OrderSystem.GenerateOrders(5);
+        var level = LevelConfigJson != null ? LevelConfigLoader.GetLevel(LevelConfigJson, CurrentLevelId) : null;
+        int orders = level != null ? level.orders : 5;
+        int timeLimit = level != null ? level.time : 300;
+        float eventChance = level != null ? level.eventChance : 0.2f;
+
+        if (EventSystem != null) EventSystem.EventChancePerMinute = eventChance;
+        OrderSystem.GenerateOrders(orders, timeLimit);
         UIController.ShowRoutePlanning();
         UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders, OrderSystem.RuntimeOrders);
     }
@@ -58,6 +68,10 @@ public class FlowController : MonoBehaviour
         if (DeliverySimulator != null)
         {
             DeliverySimulator.Orders = OrderSystem.RuntimeOrders;
+        }
+        if (MapPlaceholder != null && DeliverySequence != null)
+        {
+            MapPlaceholder.DrawRoute(DeliverySequence.OrderIds.ToArray());
         }
         UIController.DeliveryUI.UpdateRemaining(DeliverySequence != null ? DeliverySequence.Remaining : 0);
         TimerSystem?.StartTimer(300);
