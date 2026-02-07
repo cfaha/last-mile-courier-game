@@ -7,10 +7,25 @@ public class FlowController : MonoBehaviour
     public EventSystem EventSystem;
     public ScoringSystem ScoringSystem;
     public UIController UIController;
+    public TimerSystem TimerSystem;
 
     private void Start()
     {
         StartPlanning();
+        HookEvents();
+    }
+
+    private void HookEvents()
+    {
+        if (TimerSystem != null)
+        {
+            TimerSystem.OnTick += (s) => UIController.DeliveryUI.UpdateTimer(s);
+            TimerSystem.OnFinished += FinishDelivery;
+        }
+        if (EventSystem != null)
+        {
+            EventSystem.OnEvent += (title, desc) => UIController.DeliveryUI.ShowEvent(title, desc);
+        }
     }
 
     public void StartPlanning()
@@ -22,7 +37,7 @@ public class FlowController : MonoBehaviour
     public void StartDelivery()
     {
         UIController.ShowDelivery();
-        // TODO: start timer + events
+        TimerSystem?.StartTimer(300);
     }
 
     public void FinishDelivery()
