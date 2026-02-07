@@ -17,6 +17,16 @@ public class TutorialSteps : MonoBehaviour
         ShowStep();
     }
 
+    public void OnStartDeliveryClicked()
+    {
+        if (_step == 1) NextStep();
+    }
+
+    public void OnDeliverNextClicked()
+    {
+        if (_step == 2) NextStep();
+    }
+
     private void ShowStep()
     {
         if (Overlay == null) return;

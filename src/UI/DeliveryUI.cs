@@ -26,9 +26,11 @@ public class DeliveryUI : MonoBehaviour
     }
 
     public FlowController FlowController;
+    public TutorialSteps TutorialSteps;
 
     public void OnClickDeliverNext(DeliverySimulator simulator, DeliverySequence sequence)
     {
+        TutorialSteps?.OnDeliverNextClicked();
         simulator?.DeliverNext();
         if (sequence != null) UpdateRemaining(sequence.Remaining);
     }

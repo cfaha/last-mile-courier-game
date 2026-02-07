@@ -26,4 +26,9 @@ public class ResultUI : MonoBehaviour
     {
         FlowController?.StartPlanning();
     }
+
+    public void BindButtons(UnityEngine.UI.Text hint)
+    {
+        if (hint != null) hint.text = "可重玩或进入下一关";
+    }
 }

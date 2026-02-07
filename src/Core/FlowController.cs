@@ -23,6 +23,7 @@ public partial class FlowController : MonoBehaviour
     public TutorialScript TutorialScript;
     public MainMenuUI MainMenuUI;
     public LevelResultPanel LevelResultPanel;
+    public TimeStats TimeStats;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -150,6 +151,10 @@ public partial class FlowController : MonoBehaviour
         {
             LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score);
             LevelResultPanel.BindDetail(ScoringSystem.OnTimeRate, ScoringSystem.RouteEfficiency);
+        }
+        if (TimeStats != null && TimerSystem != null)
+        {
+            TimeStats.SetUsed(TimerSystem.TotalSeconds - TimerSystem.RemainingSeconds);
         }
     }
 }
