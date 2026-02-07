@@ -21,7 +21,10 @@ public class EventSystem : MonoBehaviour
     {
         if (Random.value <= EventChancePerMinute)
         {
-            OnEvent?.Invoke("门禁", "进入小区需要等待 20 秒", 0.1f, 0.05f);
+            if (Random.value < 0.5f)
+                OnEvent?.Invoke("门禁", "进入小区需要等待 20 秒", 0.1f, 0.05f);
+            else
+                OnEvent?.Invoke("暴雨", "雨天路滑，配送速度下降", 0.15f, 0.02f);
         }
     }
 }

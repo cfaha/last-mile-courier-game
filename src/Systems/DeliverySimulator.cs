@@ -18,7 +18,7 @@ public class DeliverySimulator : MonoBehaviour
         int travelSeconds = TravelTimeEstimator.EstimateSeconds(order.DistanceKm, SpeedMultiplier);
         bool onTime = travelSeconds <= order.TimeLimitSeconds;
         Processor?.MarkDelivered(onTime);
-        Debug.Log($"Delivered order #{orderId} travel={travelSeconds}s onTime={onTime}");
+        Debug.Log($"Delivered order #{orderId} travel={travelSeconds}s onTime={onTime} speed={SpeedMultiplier:F2}");
     }
 
     private OrderRuntime FindOrder(int orderId)

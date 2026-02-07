@@ -24,9 +24,12 @@ public class DeliveryProcessor : MonoBehaviour
         }
     }
 
+    public float SpeedMultiplier = 1f;
+
     public void ApplyEventPenalty(float timePenalty, float satisfactionPenalty)
     {
         State.Satisfaction = Mathf.Clamp01(State.Satisfaction - satisfactionPenalty);
         State.RouteEfficiency = Mathf.Clamp01(State.RouteEfficiency - timePenalty);
+        SpeedMultiplier = Mathf.Clamp(SpeedMultiplier - timePenalty, 0.6f, 1f);
     }
 }

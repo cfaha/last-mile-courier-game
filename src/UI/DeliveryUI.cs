@@ -12,4 +12,9 @@ public class DeliveryUI : MonoBehaviour
         // TODO: show event popup
         Debug.Log($"Event: {title} - {desc}");
     }
+
+    public void OnClickDeliverNext(DeliverySimulator simulator)
+    {
+        simulator?.DeliverNext();
+    }
 }

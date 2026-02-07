@@ -31,6 +31,10 @@ public class FlowController : MonoBehaviour
             {
                 UIController.DeliveryUI.ShowEvent(title, desc);
                 DeliveryProcessor?.ApplyEventPenalty(timePenalty, satisfactionPenalty);
+                if (DeliverySimulator != null && DeliveryProcessor != null)
+                {
+                    DeliverySimulator.SpeedMultiplier = DeliveryProcessor.SpeedMultiplier;
+                }
             };
         }
     }
