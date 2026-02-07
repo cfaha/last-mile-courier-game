@@ -7,6 +7,7 @@ public class OrderItemUI : MonoBehaviour
     public Text MetaText;
     public Button UpButton;
     public Button DownButton;
+    public DraggableOrderItem DragItem;
 
     public void Bind(OrderData data, float distanceKm)
     {

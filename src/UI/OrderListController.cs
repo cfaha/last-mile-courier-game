@@ -22,7 +22,22 @@ public class OrderListController : MonoBehaviour
                 () => Move(index, -1),
                 () => Move(index, 1)
             );
+            if (item.DragItem != null)
+            {
+                item.DragItem.SetIndex(index);
+                item.DragItem.OnSwap = Swap;
+            }
             _items.Add(item);
+        }
+    }
+
+    private void Swap(int from, int to)
+    {
+        Move(from, to - from);
+        // refresh indices
+        for (int i = 0; i < _items.Count; i++)
+        {
+            if (_items[i].DragItem != null) _items[i].DragItem.SetIndex(i);
         }
     }
 

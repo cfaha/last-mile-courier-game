@@ -16,11 +16,11 @@ public class DeliveryUI : MonoBehaviour
         if (RemainingText != null) RemainingText.text = $"剩余 {remaining} 单";
     }
 
-    public void ShowEvent(string title, string desc)
+    public void ShowEvent(string title, string desc, System.Action onWait, System.Action onDetour)
     {
         if (EventPopup != null)
         {
-            EventPopup.Show(title, desc, () => EventPopup.Hide(), () => EventPopup.Hide());
+            EventPopup.Show(title, desc, onWait, onDetour);
         }
         Debug.Log($"Event: {title} - {desc}");
     }

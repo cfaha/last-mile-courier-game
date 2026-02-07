@@ -15,12 +15,12 @@ public class EventPopupUI : MonoBehaviour
         if (WaitButton != null)
         {
             WaitButton.onClick.RemoveAllListeners();
-            WaitButton.onClick.AddListener(() => onWait?.Invoke());
+            WaitButton.onClick.AddListener(() => { onWait?.Invoke(); Hide(); });
         }
         if (DetourButton != null)
         {
             DetourButton.onClick.RemoveAllListeners();
-            DetourButton.onClick.AddListener(() => onDetour?.Invoke());
+            DetourButton.onClick.AddListener(() => { onDetour?.Invoke(); Hide(); });
         }
         gameObject.SetActive(true);
     }

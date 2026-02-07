@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlowController : MonoBehaviour
+public partial class FlowController : MonoBehaviour
 {
     public OrderSystem OrderSystem;
     public RouteSystem RouteSystem;
@@ -33,12 +33,12 @@ public class FlowController : MonoBehaviour
         {
             EventSystem.OnEvent += (title, desc, timePenalty, satisfactionPenalty) =>
             {
-                UIController.DeliveryUI.ShowEvent(title, desc);
-                DeliveryProcessor?.ApplyEventPenalty(timePenalty, satisfactionPenalty);
-                if (DeliverySimulator != null && DeliveryProcessor != null)
-                {
-                    DeliverySimulator.SpeedMultiplier = DeliveryProcessor.SpeedMultiplier;
-                }
+                UIController.DeliveryUI.ShowEvent(
+                    title,
+                    desc,
+                    () => ApplyEvent(timePenalty, satisfactionPenalty),
+                    () => ApplyEvent(timePenalty * 0.5f, satisfactionPenalty * 0.5f)
+                );
             };
         }
         if (DeliverySimulator != null)
