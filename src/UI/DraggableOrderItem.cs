@@ -24,7 +24,11 @@ public class DraggableOrderItem : MonoBehaviour, IBeginDragHandler, IDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         _startPos = _rect.position;
-        if (_group != null) _group.blocksRaycasts = false;
+        if (_group != null)
+        {
+            _group.blocksRaycasts = false;
+            _group.alpha = 0.6f;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -35,7 +39,11 @@ public class DraggableOrderItem : MonoBehaviour, IBeginDragHandler, IDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         _rect.position = _startPos;
-        if (_group != null) _group.blocksRaycasts = true;
+        if (_group != null)
+        {
+            _group.blocksRaycasts = true;
+            _group.alpha = 1f;
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
