@@ -7,9 +7,22 @@ public class TaskSystem : MonoBehaviour
     private int _dayStamp;
     private bool _rewardClaimed;
 
+    public void Load(int completed, int dayStamp, bool claimed)
+    {
+        DailyCompleted = completed;
+        _dayStamp = dayStamp;
+        _rewardClaimed = claimed;
+    }
+
+    public void Save()
+    {
+        SaveManager.SaveTaskProgress(DailyCompleted, _dayStamp, _rewardClaimed);
+    }
+
     public void OnDeliveryComplete()
     {
         DailyCompleted++;
+        Save();
     }
 
     public bool IsDailyDone() => DailyCompleted >= DailyDeliveriesTarget;
@@ -22,6 +35,7 @@ public class TaskSystem : MonoBehaviour
     public void MarkRewardClaimed()
     {
         _rewardClaimed = true;
+        Save();
     }
 
     public void ResetDailyIfNeeded(int dayStamp)
@@ -31,6 +45,7 @@ public class TaskSystem : MonoBehaviour
             _dayStamp = dayStamp;
             DailyCompleted = 0;
             _rewardClaimed = false;
+            Save();
         }
     }
 }

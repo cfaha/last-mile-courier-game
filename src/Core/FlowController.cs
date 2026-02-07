@@ -44,6 +44,8 @@ public partial class FlowController : MonoBehaviour
         }
         if (TaskSystem != null && TaskUI != null)
         {
+            SaveManager.LoadTaskProgress(out var completed, out var dayStamp, out var claimed);
+            TaskSystem.Load(completed, dayStamp, claimed);
             TaskSystem.ResetDailyIfNeeded(DayStamp.Today());
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
