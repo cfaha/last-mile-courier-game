@@ -13,6 +13,7 @@ public partial class FlowController : MonoBehaviour
     public DeliverySimulator DeliverySimulator;
     public MapPlaceholder MapPlaceholder;
     public LevelInfoUI LevelInfoUI;
+    public CompletionUI CompletionUI;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;

@@ -39,6 +39,7 @@ public partial class FlowController
         if (CurrentLevelId >= MaxLevelId)
         {
             Debug.Log("All levels completed");
+            if (CompletionUI != null) CompletionUI.Show();
             return;
         }
         CurrentLevelId += 1;
