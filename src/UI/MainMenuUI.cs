@@ -26,4 +26,9 @@ public class MainMenuUI : MonoBehaviour
     {
         FlowController?.StartPlanning();
     }
+
+    public void OnContinue()
+    {
+        FlowController?.StartPlanning();
+    }
 }
