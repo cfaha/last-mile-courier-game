@@ -4,6 +4,7 @@ public class MapPlaceholder : MonoBehaviour
 {
     public Transform[] Nodes;
     public LineRenderer Line;
+    public MapRouteAnimator Animator;
 
     public void DrawRoute(int[] orderIds)
     {
@@ -15,5 +16,6 @@ public class MapPlaceholder : MonoBehaviour
             int idx = Mathf.Clamp(orderIds[i] - 1, 0, Nodes.Length - 1);
             Line.SetPosition(i, Nodes[idx].position);
         }
+        Animator?.Play();
     }
 }
