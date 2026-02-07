@@ -19,6 +19,7 @@ public partial class FlowController : MonoBehaviour
     public TaskSystem TaskSystem;
     public TaskUI TaskUI;
     public TaskRewardUI TaskRewardUI;
+    public ToastUI ToastUI;
     public TutorialScript TutorialScript;
 
     public TextAsset LevelConfigJson;
@@ -132,9 +133,10 @@ public partial class FlowController : MonoBehaviour
         float score = ScoringSystem.CalculateScore();
         int coins = RewardCalculator.CalculateCoins(score, DeliveryProcessor?.State.BaseRewardSum ?? 500);
         CurrencySystem?.AddCoins(coins);
-        if (TaskSystem != null && TaskSystem.IsDailyDone())
+        if (TaskSystem != null && TaskSystem.CanClaimReward())
         {
             CurrencySystem?.AddCoins(200);
+            TaskSystem.MarkRewardClaimed();
             TaskRewardUI?.Show("每日任务完成 +200");
         }
         UIController.ShowResult();

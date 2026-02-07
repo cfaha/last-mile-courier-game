@@ -24,8 +24,11 @@ public class ShopUI : MonoBehaviour
         Build(items);
     }
 
+    public ToastUI ToastUI;
+
     public void OnBuy(ShopItem item)
     {
-        ShopSystem?.Buy(item, CurrencySystem);
+        bool ok = ShopSystem != null && ShopSystem.Buy(item, CurrencySystem);
+        ToastUI?.Show(ok ? "购买成功" : "余额不足");
     }
 }
