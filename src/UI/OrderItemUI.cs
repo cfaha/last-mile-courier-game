@@ -12,7 +12,7 @@ public class OrderItemUI : MonoBehaviour
 
     public void Bind(OrderData data, float distanceKm)
     {
-        if (TitleText != null) TitleText.text = $"订单 #{data.OrderId}";
+        if (TitleText != null) TitleText.text = $"订单 #{data.OrderId} [{data.Type}]";
         if (MetaText != null) MetaText.text = $"距离 {distanceKm:F1}km / 时限 {data.TimeLimitSeconds}s";
     }
 

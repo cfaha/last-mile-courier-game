@@ -4,4 +4,5 @@ public class OrderData
     public int OrderId;
     public int BaseReward;
     public int TimeLimitSeconds;
+    public OrderType Type;
 }
