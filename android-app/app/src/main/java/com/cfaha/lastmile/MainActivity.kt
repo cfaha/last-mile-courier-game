@@ -66,7 +66,7 @@ fun App() {
                 }
                 Screen.Planning -> {
                     Text("规划页 - 订单列表")
-                    MapView(engine.orders)
+                    MapView(engine.orders, engine.currentOrderId())
                     LazyColumn(modifier = Modifier.weight(1f)) {
                         items(engine.orders) { o ->
                             Card(Modifier.fillMaxWidth().padding(4.dp)) {
@@ -76,24 +76,35 @@ fun App() {
                                     Text("${o.distanceKm}km / ${o.timeLimit}s")
                                     Spacer(Modifier.weight(1f))
                                     Text(if (o.delivered) "已送" else "待送", color = if (o.delivered) Color.Green else Color.Gray)
+                                    Spacer(Modifier.width(8.dp))
+                                    Text("↑", modifier = Modifier.clickable {
+                                        val idx = engine.orders.indexOfFirst { it.id == o.id }
+                                        if (idx > 0) {
+                                            val tmp = engine.orders[idx - 1]
+                                            engine.orders[idx - 1] = engine.orders[idx]
+                                            engine.orders[idx] = tmp
+                                        }
+                                    })
+                                    Spacer(Modifier.width(6.dp))
+                                    Text("↓", modifier = Modifier.clickable {
+                                        val idx = engine.orders.indexOfFirst { it.id == o.id }
+                                        if (idx >= 0 && idx < engine.orders.size - 1) {
+                                            val tmp = engine.orders[idx + 1]
+                                            engine.orders[idx + 1] = engine.orders[idx]
+                                            engine.orders[idx] = tmp
+                                        }
+                                    })
                                 }
                             }
                         }
                     }
                     Row {
-                        Button(onClick = {
-                            if (engine.orders.size > 1) {
-                                val tmp = engine.orders[0]
-                                engine.orders[0] = engine.orders[1]
-                                engine.orders[1] = tmp
-                            }
-                        }) { Text("交换前两单") }
-                        Spacer(Modifier.width(8.dp))
                         Button(onClick = { screen = Screen.Delivery }) { Text("开始配送") }
                     }
                 }
                 Screen.Delivery -> {
                     Text("配送中")
+                    Text("当前目标：${engine.currentOrderId() ?: "无"}")
                     Spacer(modifier = Modifier.height(8.dp))
                     Button(onClick = {
                         val (order, done) = engine.deliverNext(engine.efficiency)

@@ -36,6 +36,8 @@ class GameEngine(
         satisfaction = 1f
     }
 
+    fun currentOrderId(): Int? = orders.firstOrNull { !it.delivered }?.id
+
     fun deliverNext(speedMultiplier: Float = 1f): Pair<Order?, Boolean> {
         val next = orders.firstOrNull { !it.delivered } ?: return Pair(null, true)
         val travelSeconds = (next.distanceKm * 180f / max(0.1f, speedMultiplier)).toInt()

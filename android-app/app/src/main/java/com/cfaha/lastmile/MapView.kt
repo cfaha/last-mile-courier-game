@@ -13,7 +13,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun MapView(orders: List<Order>) {
+fun MapView(orders: List<Order>, currentId: Int?) {
     Canvas(modifier = Modifier.fillMaxWidth().height(160.dp)) {
         val count = orders.size
         if (count == 0) return@Canvas
@@ -32,8 +32,10 @@ fun MapView(orders: List<Order>) {
         }
         // nodes
         orders.forEachIndexed { i, o ->
+            val baseColor = if (o.delivered) Color.White else OrderTypeColorKt.get(o.type)
+            val color = if (o.id == currentId) Color.Red else baseColor
             drawCircle(
-                color = if (o.delivered) Color.White else OrderTypeColorKt.get(o.type),
+                color = color,
                 radius = 12f,
                 center = points[i]
             )
