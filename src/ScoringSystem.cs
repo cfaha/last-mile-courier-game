@@ -10,5 +10,12 @@ public class ScoringSystem : MonoBehaviour
     {
         return ScoreCalculator.Calculate(OnTimeRate, RouteEfficiency, Satisfaction);
     }
+
+    public void SyncFromState(DeliveryState state)
+    {
+        OnTimeRate = state.OnTimeRate;
+        RouteEfficiency = state.RouteEfficiency;
+        Satisfaction = state.Satisfaction;
+    }
 }
 

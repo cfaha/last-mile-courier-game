@@ -8,6 +8,7 @@ public class FlowController : MonoBehaviour
     public ScoringSystem ScoringSystem;
     public UIController UIController;
     public TimerSystem TimerSystem;
+    public DeliveryProcessor DeliveryProcessor;
 
     private void Start()
     {
@@ -37,13 +38,20 @@ public class FlowController : MonoBehaviour
     public void StartDelivery()
     {
         UIController.ShowDelivery();
+        DeliveryProcessor?.Init(OrderSystem.ActiveOrders.Count, 500);
         TimerSystem?.StartTimer(300);
     }
 
     public void FinishDelivery()
     {
+        if (DeliveryProcessor != null)
+        {
+            ScoringSystem.SyncFromState(DeliveryProcessor.State);
+        }
         float score = ScoringSystem.CalculateScore();
+        int coins = RewardCalculator.CalculateCoins(score, DeliveryProcessor?.State.BaseRewardSum ?? 500);
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score);
+        // TODO: show coins in UI
     }
 }
