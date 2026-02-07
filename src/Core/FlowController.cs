@@ -47,7 +47,7 @@ public class FlowController : MonoBehaviour
     {
         OrderSystem.GenerateOrders(5);
         UIController.ShowRoutePlanning();
-        UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders);
+        UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders, OrderSystem.RuntimeOrders);
     }
 
     public void StartDelivery()
@@ -59,6 +59,7 @@ public class FlowController : MonoBehaviour
         {
             DeliverySimulator.Orders = OrderSystem.RuntimeOrders;
         }
+        UIController.DeliveryUI.UpdateRemaining(DeliverySequence != null ? DeliverySequence.Remaining : 0);
         TimerSystem?.StartTimer(300);
     }
 

@@ -7,7 +7,7 @@ public class RoutePlanningUI : MonoBehaviour
     public Transform ListRoot;
     public OrderItemUI ItemPrefab;
 
-    public void BindOrders(List<OrderData> orders)
+    public void BindOrders(List<OrderData> orders, OrderRuntime[] runtime)
     {
         // TODO: render draggable list
         var ids = new List<int>();
@@ -20,7 +20,8 @@ public class RoutePlanningUI : MonoBehaviour
             if (ItemPrefab != null && ListRoot != null)
             {
                 var item = Object.Instantiate(ItemPrefab, ListRoot);
-                item.Bind(order, 1.0f + i * 0.2f);
+                float dist = (runtime != null && i < runtime.Length) ? runtime[i].DistanceKm : (1.0f + i * 0.2f);
+                item.Bind(order, dist);
             }
         }
         DragController?.SetOrders(ids);
