@@ -12,9 +12,11 @@ public partial class FlowController : MonoBehaviour
     public DeliverySequence DeliverySequence;
     public DeliverySimulator DeliverySimulator;
     public MapPlaceholder MapPlaceholder;
+    public LevelInfoUI LevelInfoUI;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
+    private LevelConfig _currentLevel;
 
     private void Start()
     {
@@ -56,23 +58,22 @@ public partial class FlowController : MonoBehaviour
 
     public void StartPlanning()
     {
-        var level = LevelConfigJson != null ? LevelConfigLoader.GetLevel(LevelConfigJson, CurrentLevelId) : null;
-        int orders = level != null ? level.orders : 5;
-        int timeLimit = level != null ? level.time : 300;
-        float eventChance = level != null ? level.eventChance : 0.2f;
+        _currentLevel = LevelConfigJson != null ? LevelConfigLoader.GetLevel(LevelConfigJson, CurrentLevelId) : null;
+        int orders = _currentLevel != null ? _currentLevel.orders : 5;
+        int timeLimit = _currentLevel != null ? _currentLevel.time : 300;
+        float eventChance = _currentLevel != null ? _currentLevel.eventChance : 0.2f;
 
         if (EventSystem != null)
         {
             EventSystem.EventChancePerMinute = eventChance;
-            if (level != null) EventSystem.Zone = level.zone;
+            if (_currentLevel != null) EventSystem.Zone = _currentLevel.zone;
         }
         OrderSystem.GenerateOrders(orders, timeLimit);
         UIController.ShowRoutePlanning();
         UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders, OrderSystem.RuntimeOrders);
-
-        if (level != null && !string.IsNullOrEmpty(level.forcedEvent))
+        if (LevelInfoUI != null)
         {
-            TriggerForcedEvent(level.forcedEvent);
+            LevelInfoUI.Bind(CurrentLevelId, _currentLevel != null ? _currentLevel.zone : ZoneType.Residential);
         }
     }
 
@@ -91,6 +92,11 @@ public partial class FlowController : MonoBehaviour
         }
         UIController.DeliveryUI.UpdateRemaining(DeliverySequence != null ? DeliverySequence.Remaining : 0);
         TimerSystem?.StartTimer(300);
+
+        if (_currentLevel != null && !string.IsNullOrEmpty(_currentLevel.forcedEvent))
+        {
+            TriggerForcedEvent(_currentLevel.forcedEvent);
+        }
     }
 
     public void FinishDelivery()

@@ -6,6 +6,8 @@ public class ResultUI : MonoBehaviour
     public Text CoinText;
     public Text RatingText;
 
+    public FlowController FlowController;
+
     public void ShowResult(float score, int coins)
     {
         string rating = RatingHelper.GetRating(score);
@@ -13,5 +15,10 @@ public class ResultUI : MonoBehaviour
         if (ScoreText != null) ScoreText.text = $"{score:F2}";
         if (CoinText != null) CoinText.text = $"+{coins}";
         if (RatingText != null) RatingText.text = rating;
+    }
+
+    public void OnNextLevel()
+    {
+        FlowController?.NextLevel();
     }
 }

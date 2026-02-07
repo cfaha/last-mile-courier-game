@@ -33,4 +33,10 @@ public partial class FlowController
                 break;
         }
     }
+
+    public void NextLevel()
+    {
+        CurrentLevelId += 1;
+        StartPlanning();
+    }
 }
