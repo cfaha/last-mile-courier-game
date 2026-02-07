@@ -10,5 +10,6 @@ public class DeliveryUI : MonoBehaviour
     public void ShowEvent(string title, string desc)
     {
         // TODO: show event popup
+        Debug.Log($"Event: {title} - {desc}");
     }
 }

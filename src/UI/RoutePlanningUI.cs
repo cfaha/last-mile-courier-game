@@ -9,7 +9,11 @@ public class RoutePlanningUI : MonoBehaviour
     {
         // TODO: render draggable list
         var ids = new List<int>();
-        foreach (var order in orders) ids.Add(order.OrderId);
+        foreach (var order in orders)
+        {
+            ids.Add(order.OrderId);
+            Debug.Log($"Order #{order.OrderId} reward={order.BaseReward} time={order.TimeLimitSeconds}");
+        }
         DragController?.SetOrders(ids);
     }
 

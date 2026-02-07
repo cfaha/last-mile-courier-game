@@ -9,6 +9,7 @@ public class FlowController : MonoBehaviour
     public UIController UIController;
     public TimerSystem TimerSystem;
     public DeliveryProcessor DeliveryProcessor;
+    public DeliverySequence DeliverySequence;
 
     private void Start()
     {
@@ -37,12 +38,14 @@ public class FlowController : MonoBehaviour
     {
         OrderSystem.GenerateOrders(5);
         UIController.ShowRoutePlanning();
+        UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders);
     }
 
     public void StartDelivery()
     {
         UIController.ShowDelivery();
         DeliveryProcessor?.Init(OrderSystem.ActiveOrders.Count, 500);
+        DeliverySequence?.SetSequence(UIController.RoutePlanningUI.DragController.CurrentOrderIds);
         TimerSystem?.StartTimer(300);
     }
 
