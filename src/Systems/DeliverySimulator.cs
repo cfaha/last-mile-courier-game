@@ -14,6 +14,8 @@ public class DeliverySimulator : MonoBehaviour
     public TaskUI TaskUI;
     public MainMenuUI MainMenuUI;
     public MapNodeLabel[] MapLabels;
+    public Color PendingColor = Color.gray;
+    public Color DeliveredColor = Color.white;
 
     public void DeliverNext()
     {
@@ -48,7 +50,7 @@ public class DeliverySimulator : MonoBehaviour
         var label = MapLabels[idx];
         if (label != null && label.Dot != null)
         {
-            label.Dot.color = Color.white;
+            label.Dot.color = DeliveredColor;
         }
     }
 

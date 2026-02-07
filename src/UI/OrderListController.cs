@@ -8,6 +8,18 @@ public class OrderListController : MonoBehaviour
     public OrderItemUI ItemPrefab;
     private readonly List<OrderItemUI> _items = new List<OrderItemUI>();
 
+    public void MarkDelivered(int orderId)
+    {
+        foreach (var item in _items)
+        {
+            if (item != null && item.OrderId == orderId)
+            {
+                item.MarkDelivered();
+                return;
+            }
+        }
+    }
+
     public void Build(List<OrderData> orders, OrderRuntime[] runtime)
     {
         Clear();

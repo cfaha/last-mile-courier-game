@@ -11,12 +11,21 @@ public class OrderItemUI : MonoBehaviour
     public DragFeedback DragFeedback;
 
     public UnityEngine.UI.Image TypeDot;
+    public OrderStatusUI StatusUI;
+    public int OrderId;
 
     public void Bind(OrderData data, float distanceKm)
     {
+        OrderId = data.OrderId;
         if (TitleText != null) TitleText.text = $"订单 #{data.OrderId} [{data.Type}]";
         if (MetaText != null) MetaText.text = $"距离 {distanceKm:F1}km / 时限 {data.TimeLimitSeconds}s";
         if (TypeDot != null) TypeDot.color = OrderTypeColor.Get(data.Type);
+        StatusUI?.SetStatus(DeliveryStatus.Pending);
+    }
+
+    public void MarkDelivered()
+    {
+        StatusUI?.SetStatus(DeliveryStatus.Delivered);
     }
 
     public void SetMoveHandlers(System.Action onUp, System.Action onDown)
