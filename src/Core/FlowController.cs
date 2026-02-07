@@ -15,6 +15,8 @@ public partial class FlowController : MonoBehaviour
     public LevelInfoUI LevelInfoUI;
     public CompletionUI CompletionUI;
     public CurrencySystem CurrencySystem;
+    public CurrencyUI CurrencyUI;
+    public TaskSystem TaskSystem;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -26,6 +28,11 @@ public partial class FlowController : MonoBehaviour
         CurrentLevelId = SaveManager.LoadLevel(1);
         StartPlanning();
         HookEvents();
+        if (CurrencySystem != null && CurrencyUI != null)
+        {
+            CurrencySystem.OnChanged += CurrencyUI.Bind;
+            CurrencyUI.Bind(CurrencySystem.Coins);
+        }
     }
 
     private void HookEvents()
@@ -112,6 +119,10 @@ public partial class FlowController : MonoBehaviour
         float score = ScoringSystem.CalculateScore();
         int coins = RewardCalculator.CalculateCoins(score, DeliveryProcessor?.State.BaseRewardSum ?? 500);
         CurrencySystem?.AddCoins(coins);
+        if (TaskSystem != null && TaskSystem.IsDailyDone())
+        {
+            CurrencySystem?.AddCoins(200);
+        }
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score, coins);
     }
