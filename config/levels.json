@@ -1,0 +1,7 @@
+{
+  "levels": [
+    {"id": 1, "orders": 3, "time": 180, "eventChance": 0.1},
+    {"id": 2, "orders": 4, "time": 210, "eventChance": 0.12},
+    {"id": 3, "orders": 5, "time": 240, "eventChance": 0.15}
+  ]
+}
