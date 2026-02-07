@@ -18,4 +18,15 @@ public class MapNodeLayout : MonoBehaviour
             Nodes[i].localPosition = new Vector3(x, y, 0);
         }
     }
+
+    public void ArrangeRandom(float range)
+    {
+        if (Nodes == null || Nodes.Length == 0) return;
+        for (int i = 0; i < Nodes.Length; i++)
+        {
+            float x = Random.Range(-range, range);
+            float y = Random.Range(-range, range);
+            Nodes[i].localPosition = new Vector3(x, y, 0);
+        }
+    }
 }
