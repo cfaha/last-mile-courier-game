@@ -16,7 +16,7 @@ public partial class FlowController
         switch (forced)
         {
             case "Gate":
-                TutorialScript?.ShowForLevel(2);
+                TutorialScript?.ShowForForcedEvent("Gate");
                 UIController?.DeliveryUI.ShowEvent(
                     "门禁",
                     "进入小区需要等待 20 秒",
@@ -25,7 +25,7 @@ public partial class FlowController
                 );
                 break;
             case "Rain":
-                TutorialScript?.ShowForLevel(3);
+                TutorialScript?.ShowForForcedEvent("Rain");
                 UIController?.DeliveryUI.ShowEvent(
                     "暴雨",
                     "雨天路滑，配送速度下降",

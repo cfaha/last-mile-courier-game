@@ -28,4 +28,18 @@ public class TutorialScript : MonoBehaviour
             Overlay?.Hide();
         }
     }
+
+    public void ShowForForcedEvent(string type)
+    {
+        if (type == "Gate")
+        {
+            UI?.Show("门禁：等待或绕行");
+            Overlay?.Show("门禁：等待或绕行");
+        }
+        else if (type == "Rain")
+        {
+            UI?.Show("暴雨：速度下降");
+            Overlay?.Show("暴雨：速度下降");
+        }
+    }
 }
