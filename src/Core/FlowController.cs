@@ -40,6 +40,7 @@ public partial class FlowController : MonoBehaviour
         }
         if (TaskSystem != null && TaskUI != null)
         {
+            TaskSystem.ResetDailyIfNeeded(DayStamp.Today());
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
     }
