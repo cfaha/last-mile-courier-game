@@ -7,8 +7,11 @@ public class MainMenuUI : MonoBehaviour
     public TaskUI TaskUI;
     public CurrencyUI CurrencyUI;
 
+    public int CurrentLevel;
+
     public void BindProgress(int level)
     {
+        CurrentLevel = level;
         if (ProgressText != null) ProgressText.text = $"当前进度：{level}";
     }
 
@@ -29,6 +32,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void OnContinue()
     {
+        FlowController.CurrentLevelId = CurrentLevel;
         FlowController?.StartPlanning();
     }
 }
