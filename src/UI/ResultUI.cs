@@ -9,6 +9,8 @@ public class ResultUI : MonoBehaviour
     public RatingIconUI RatingIconUI;
     public UnityEngine.UI.Button NextButton;
     public Text FailText;
+    public Text StateText;
+    public UnityEngine.UI.Button ReplayButton;
 
     public FlowController FlowController;
 
@@ -20,9 +22,11 @@ public class ResultUI : MonoBehaviour
         if (CoinText != null) CoinText.text = $"+{coins}";
         if (RatingText != null) RatingText.text = rating;
         RatingIconUI?.Bind(rating);
-        BindButtons(HintText);
+        BindButtons(HintText, failed);
         if (NextButton != null) NextButton.interactable = !failed;
+        if (ReplayButton != null) ReplayButton.interactable = true;
         if (FailText != null) FailText.text = failed ? "失败：未完成全部订单" : "";
+        if (StateText != null) StateText.text = failed ? "失败" : "成功";
     }
 
     public void OnNextLevel()
@@ -36,11 +40,11 @@ public class ResultUI : MonoBehaviour
         FlowController?.StartPlanning();
     }
 
-    public void BindButtons(UnityEngine.UI.Text hint)
+    public void BindButtons(UnityEngine.UI.Text hint, bool failed)
     {
         if (hint != null && string.IsNullOrEmpty(hint.text))
         {
-            hint.text = "失败时可重玩";
+            hint.text = failed ? "失败时可重玩" : "可进入下一关";
         }
     }
 
