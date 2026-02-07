@@ -45,7 +45,7 @@ public class TutorialScript : MonoBehaviour
         Invoke(nameof(HideAll), 3f);
     }
 
-    private void HideAll()
+    public void HideAll()
     {
         UI?.Hide();
         Overlay?.Hide();

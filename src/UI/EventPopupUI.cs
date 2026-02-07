@@ -12,6 +12,7 @@ public class EventPopupUI : MonoBehaviour
     public Text DetourText;
     public InputBlocker Blocker;
     public float AutoHideSeconds = 5f;
+    public TutorialScript TutorialScript;
 
     public void Show(string title, string desc, System.Action onWait, System.Action onDetour)
     {
@@ -39,7 +40,6 @@ public class EventPopupUI : MonoBehaviour
     {
         Blocker?.Hide();
         gameObject.SetActive(false);
-        var tutorial = FindObjectOfType<TutorialScript>();
-        if (tutorial != null) tutorial.SendMessage("HideAll", SendMessageOptions.DontRequireReceiver);
+        TutorialScript?.HideAll();
     }
 }
