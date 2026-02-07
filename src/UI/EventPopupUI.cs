@@ -28,6 +28,8 @@ public class EventPopupUI : MonoBehaviour
             DetourButton.onClick.AddListener(() => { onDetour?.Invoke(); Hide(); });
         }
         gameObject.SetActive(true);
+        CancelInvoke(nameof(Hide));
+        Invoke(nameof(Hide), 5f);
     }
 
     public void Hide()

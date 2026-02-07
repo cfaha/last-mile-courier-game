@@ -8,4 +8,10 @@ public class CurrencySystem
         Coins += amount;
         OnChanged?.Invoke(Coins);
     }
+
+    public void SetCoins(int coins)
+    {
+        Coins = coins;
+        OnChanged?.Invoke(Coins);
+    }
 }

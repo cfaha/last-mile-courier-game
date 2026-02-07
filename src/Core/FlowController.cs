@@ -21,6 +21,7 @@ public partial class FlowController : MonoBehaviour
     public TaskRewardUI TaskRewardUI;
     public ToastUI ToastUI;
     public TutorialScript TutorialScript;
+    public MainMenuUI MainMenuUI;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -39,7 +40,7 @@ public partial class FlowController : MonoBehaviour
                 CurrencyUI.Bind(coins);
                 SaveManager.SaveCoins(coins);
             };
-            CurrencySystem.AddCoins(SaveManager.LoadCoins(0));
+            CurrencySystem.SetCoins(SaveManager.LoadCoins(0));
         }
         if (TaskSystem != null && TaskUI != null)
         {
@@ -47,6 +48,7 @@ public partial class FlowController : MonoBehaviour
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
         TutorialScript?.ShowForLevel(CurrentLevelId);
+        MainMenuUI?.BindProgress(CurrentLevelId);
     }
 
     private void HookEvents()
