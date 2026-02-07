@@ -33,6 +33,10 @@ public class DeliveryUI : MonoBehaviour
         TutorialSteps?.OnDeliverNextClicked();
         simulator?.DeliverNext();
         if (sequence != null) UpdateRemaining(sequence.Remaining);
+        if (sequence != null && sequence.Remaining <= 0)
+        {
+            TutorialSteps?.Complete();
+        }
     }
 
     public void OnClickFinish()

@@ -31,4 +31,9 @@ public class ResultUI : MonoBehaviour
     {
         if (hint != null) hint.text = "可重玩或进入下一关";
     }
+
+    public void HideHint(UnityEngine.UI.Text hint)
+    {
+        if (hint != null) hint.text = "";
+    }
 }

@@ -35,4 +35,10 @@ public class TutorialSteps : MonoBehaviour
         else if (_step == 2) Overlay.Show("点击送下一单");
         else Overlay.Hide();
     }
+
+    public void Complete()
+    {
+        _step = 99;
+        Overlay?.Hide();
+    }
 }

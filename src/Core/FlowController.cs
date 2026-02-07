@@ -50,6 +50,7 @@ public partial class FlowController : MonoBehaviour
             TaskSystem.Load(completed, dayStamp, claimed);
             TaskSystem.ResetDailyIfNeeded(DayStamp.Today());
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
+            MainMenuUI?.BindTask(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
         TutorialScript?.ShowForLevel(CurrentLevelId);
         if (CurrentLevelId == 1)
