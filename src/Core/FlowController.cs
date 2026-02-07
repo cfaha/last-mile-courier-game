@@ -17,6 +17,7 @@ public partial class FlowController : MonoBehaviour
     public CurrencySystem CurrencySystem;
     public CurrencyUI CurrencyUI;
     public TaskSystem TaskSystem;
+    public TaskUI TaskUI;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -30,8 +31,16 @@ public partial class FlowController : MonoBehaviour
         HookEvents();
         if (CurrencySystem != null && CurrencyUI != null)
         {
-            CurrencySystem.OnChanged += CurrencyUI.Bind;
-            CurrencyUI.Bind(CurrencySystem.Coins);
+            CurrencySystem.OnChanged += (coins) =>
+            {
+                CurrencyUI.Bind(coins);
+                SaveManager.SaveCoins(coins);
+            };
+            CurrencySystem.AddCoins(SaveManager.LoadCoins(0));
+        }
+        if (TaskSystem != null && TaskUI != null)
+        {
+            TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
     }
 
