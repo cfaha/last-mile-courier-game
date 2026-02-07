@@ -10,6 +10,7 @@ public class FlowController : MonoBehaviour
     public TimerSystem TimerSystem;
     public DeliveryProcessor DeliveryProcessor;
     public DeliverySequence DeliverySequence;
+    public DeliverySimulator DeliverySimulator;
 
     private void Start()
     {
@@ -46,6 +47,10 @@ public class FlowController : MonoBehaviour
         UIController.ShowDelivery();
         DeliveryProcessor?.Init(OrderSystem.ActiveOrders.Count, 500);
         DeliverySequence?.SetSequence(UIController.RoutePlanningUI.DragController.CurrentOrderIds);
+        if (DeliverySimulator != null)
+        {
+            DeliverySimulator.Orders = OrderSystem.RuntimeOrders;
+        }
         TimerSystem?.StartTimer(300);
     }
 

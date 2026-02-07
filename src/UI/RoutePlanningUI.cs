@@ -12,7 +12,7 @@ public class RoutePlanningUI : MonoBehaviour
         foreach (var order in orders)
         {
             ids.Add(order.OrderId);
-            Debug.Log($"Order #{order.OrderId} reward={order.BaseReward} time={order.TimeLimitSeconds}");
+            Debug.Log($"Order #{order.OrderId} reward={order.BaseReward} time={order.TimeLimitSeconds}s");
         }
         DragController?.SetOrders(ids);
     }
