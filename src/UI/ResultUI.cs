@@ -29,7 +29,10 @@ public class ResultUI : MonoBehaviour
 
     public void BindButtons(UnityEngine.UI.Text hint)
     {
-        if (hint != null) hint.text = "可重玩或进入下一关";
+        if (hint != null && string.IsNullOrEmpty(hint.text))
+        {
+            hint.text = "可重玩或进入下一关";
+        }
     }
 
     public void HideHint(UnityEngine.UI.Text hint)

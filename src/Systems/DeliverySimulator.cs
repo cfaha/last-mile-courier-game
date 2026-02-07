@@ -12,6 +12,7 @@ public class DeliverySimulator : MonoBehaviour
     public System.Action OnAllDelivered;
     public TaskSystem TaskSystem;
     public TaskUI TaskUI;
+    public MainMenuUI MainMenuUI;
 
     public void DeliverNext()
     {
@@ -29,6 +30,7 @@ public class DeliverySimulator : MonoBehaviour
         if (TaskSystem != null && TaskUI != null)
         {
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
+            MainMenuUI?.BindTask(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
         OnDelivered?.Invoke(orderId.Value);
         if (Sequence != null && Sequence.Remaining <= 0)
