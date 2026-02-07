@@ -8,6 +8,8 @@ public class LevelConfig
     public int orders;
     public int time;
     public float eventChance;
+    public ZoneType zone;
+    public string forcedEvent;
 }
 
 [Serializable]

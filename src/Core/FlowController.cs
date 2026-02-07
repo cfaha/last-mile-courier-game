@@ -61,10 +61,19 @@ public partial class FlowController : MonoBehaviour
         int timeLimit = level != null ? level.time : 300;
         float eventChance = level != null ? level.eventChance : 0.2f;
 
-        if (EventSystem != null) EventSystem.EventChancePerMinute = eventChance;
+        if (EventSystem != null)
+        {
+            EventSystem.EventChancePerMinute = eventChance;
+            if (level != null) EventSystem.Zone = level.zone;
+        }
         OrderSystem.GenerateOrders(orders, timeLimit);
         UIController.ShowRoutePlanning();
         UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders, OrderSystem.RuntimeOrders);
+
+        if (level != null && !string.IsNullOrEmpty(level.forcedEvent))
+        {
+            TriggerForcedEvent(level.forcedEvent);
+        }
     }
 
     public void StartDelivery()
