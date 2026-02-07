@@ -11,6 +11,7 @@ public class DeliverySimulator : MonoBehaviour
     public System.Action<int> OnDelivered;
     public System.Action OnAllDelivered;
     public TaskSystem TaskSystem;
+    public TaskUI TaskUI;
 
     public void DeliverNext()
     {
@@ -25,6 +26,10 @@ public class DeliverySimulator : MonoBehaviour
         Debug.Log($"Delivered order #{orderId} travel={travelSeconds}s onTime={onTime} speed={SpeedMultiplier:F2}");
 
         TaskSystem?.OnDeliveryComplete();
+        if (TaskSystem != null && TaskUI != null)
+        {
+            TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
+        }
         OnDelivered?.Invoke(orderId.Value);
         if (Sequence != null && Sequence.Remaining <= 0)
         {
