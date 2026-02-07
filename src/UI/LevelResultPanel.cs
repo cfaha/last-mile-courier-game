@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class LevelResultPanel : MonoBehaviour
 {
     public Text SummaryText;
+    public Text DetailText;
 
     public void Bind(int delivered, int total, float score)
     {
@@ -15,6 +16,9 @@ public class LevelResultPanel : MonoBehaviour
 
     public void BindDetail(float onTime, float efficiency)
     {
-        // TODO: add detailed fields
+        if (DetailText != null)
+        {
+            DetailText.text = $"准时率 {onTime:P0} / 效率 {efficiency:P0}";
+        }
     }
 }

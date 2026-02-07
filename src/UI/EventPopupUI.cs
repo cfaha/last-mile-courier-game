@@ -11,6 +11,7 @@ public class EventPopupUI : MonoBehaviour
     public Text WaitText;
     public Text DetourText;
     public InputBlocker Blocker;
+    public float AutoHideSeconds = 5f;
 
     public void Show(string title, string desc, System.Action onWait, System.Action onDetour)
     {
@@ -31,7 +32,7 @@ public class EventPopupUI : MonoBehaviour
         gameObject.SetActive(true);
         Blocker?.Show();
         CancelInvoke(nameof(Hide));
-        Invoke(nameof(Hide), 5f);
+        Invoke(nameof(Hide), AutoHideSeconds);
     }
 
     public void Hide()

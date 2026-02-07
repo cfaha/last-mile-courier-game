@@ -149,6 +149,7 @@ public partial class FlowController : MonoBehaviour
         if (DeliveryProcessor != null && LevelResultPanel != null)
         {
             LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score);
+            LevelResultPanel.BindDetail(ScoringSystem.OnTimeRate, ScoringSystem.RouteEfficiency);
         }
     }
 }
