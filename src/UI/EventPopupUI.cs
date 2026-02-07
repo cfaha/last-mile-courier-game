@@ -10,6 +10,7 @@ public class EventPopupUI : MonoBehaviour
 
     public Text WaitText;
     public Text DetourText;
+    public InputBlocker Blocker;
 
     public void Show(string title, string desc, System.Action onWait, System.Action onDetour)
     {
@@ -28,12 +29,14 @@ public class EventPopupUI : MonoBehaviour
             DetourButton.onClick.AddListener(() => { onDetour?.Invoke(); Hide(); });
         }
         gameObject.SetActive(true);
+        Blocker?.Show();
         CancelInvoke(nameof(Hide));
         Invoke(nameof(Hide), 5f);
     }
 
     public void Hide()
     {
+        Blocker?.Hide();
         gameObject.SetActive(false);
     }
 }

@@ -12,4 +12,9 @@ public class LevelResultPanel : MonoBehaviour
             SummaryText.text = $"完成 {delivered}/{total} 评分 {score:F2}";
         }
     }
+
+    public void BindDetail(float onTime, float efficiency)
+    {
+        // TODO: add detailed fields
+    }
 }
