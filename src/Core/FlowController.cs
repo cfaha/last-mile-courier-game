@@ -14,6 +14,7 @@ public partial class FlowController : MonoBehaviour
     public MapPlaceholder MapPlaceholder;
     public LevelInfoUI LevelInfoUI;
     public CompletionUI CompletionUI;
+    public CurrencySystem CurrencySystem;
 
     public TextAsset LevelConfigJson;
     public int CurrentLevelId = 1;
@@ -110,6 +111,7 @@ public partial class FlowController : MonoBehaviour
         }
         float score = ScoringSystem.CalculateScore();
         int coins = RewardCalculator.CalculateCoins(score, DeliveryProcessor?.State.BaseRewardSum ?? 500);
+        CurrencySystem?.AddCoins(coins);
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score, coins);
     }
