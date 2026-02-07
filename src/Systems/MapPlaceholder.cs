@@ -3,10 +3,17 @@ using UnityEngine;
 public class MapPlaceholder : MonoBehaviour
 {
     public Transform[] Nodes;
+    public LineRenderer Line;
 
     public void DrawRoute(int[] orderIds)
     {
-        // TODO: line renderer / path visualize
-        Debug.Log($"DrawRoute: {orderIds.Length} nodes");
+        if (Line == null || Nodes == null) return;
+        int count = Mathf.Min(orderIds.Length, Nodes.Length);
+        Line.positionCount = count;
+        for (int i = 0; i < count; i++)
+        {
+            int idx = Mathf.Clamp(orderIds[i] - 1, 0, Nodes.Length - 1);
+            Line.SetPosition(i, Nodes[idx].position);
+        }
     }
 }

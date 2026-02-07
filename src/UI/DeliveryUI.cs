@@ -4,6 +4,7 @@ public class DeliveryUI : MonoBehaviour
 {
     public UnityEngine.UI.Text TimerText;
     public UnityEngine.UI.Text RemainingText;
+    public EventPopupUI EventPopup;
 
     public void UpdateTimer(int secondsLeft)
     {
@@ -17,7 +18,10 @@ public class DeliveryUI : MonoBehaviour
 
     public void ShowEvent(string title, string desc)
     {
-        // TODO: show event popup
+        if (EventPopup != null)
+        {
+            EventPopup.Show(title, desc, () => EventPopup.Hide(), () => EventPopup.Hide());
+        }
         Debug.Log($"Event: {title} - {desc}");
     }
 
