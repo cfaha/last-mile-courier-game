@@ -25,7 +25,11 @@ public class FlowController : MonoBehaviour
         }
         if (EventSystem != null)
         {
-            EventSystem.OnEvent += (title, desc) => UIController.DeliveryUI.ShowEvent(title, desc);
+            EventSystem.OnEvent += (title, desc, timePenalty, satisfactionPenalty) =>
+            {
+                UIController.DeliveryUI.ShowEvent(title, desc);
+                DeliveryProcessor?.ApplyEventPenalty(timePenalty, satisfactionPenalty);
+            };
         }
     }
 
@@ -51,7 +55,6 @@ public class FlowController : MonoBehaviour
         float score = ScoringSystem.CalculateScore();
         int coins = RewardCalculator.CalculateCoins(score, DeliveryProcessor?.State.BaseRewardSum ?? 500);
         UIController.ShowResult();
-        UIController.ResultUI.ShowResult(score);
-        // TODO: show coins in UI
+        UIController.ResultUI.ShowResult(score, coins);
     }
 }

@@ -3,9 +3,14 @@ using UnityEngine;
 
 public class RoutePlanningUI : MonoBehaviour
 {
+    public RouteDragController DragController;
+
     public void BindOrders(List<OrderData> orders)
     {
         // TODO: render draggable list
+        var ids = new List<int>();
+        foreach (var order in orders) ids.Add(order.OrderId);
+        DragController?.SetOrders(ids);
     }
 
     public void OnStartDelivery()
