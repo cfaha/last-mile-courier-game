@@ -39,5 +39,7 @@ public class EventPopupUI : MonoBehaviour
     {
         Blocker?.Hide();
         gameObject.SetActive(false);
+        var tutorial = FindObjectOfType<TutorialScript>();
+        if (tutorial != null) tutorial.SendMessage("HideAll", SendMessageOptions.DontRequireReceiver);
     }
 }

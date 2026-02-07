@@ -41,5 +41,13 @@ public class TutorialScript : MonoBehaviour
             UI?.Show("暴雨：速度下降");
             Overlay?.Show("暴雨：速度下降");
         }
+        CancelInvoke(nameof(HideAll));
+        Invoke(nameof(HideAll), 3f);
+    }
+
+    private void HideAll()
+    {
+        UI?.Hide();
+        Overlay?.Hide();
     }
 }
