@@ -20,6 +20,13 @@
 - 订单排序（拖拽+上下按钮）
 - 结算面板（评分/金币/耗时）
 - 任务/货币/商店基础系统
+- 事件/订单权重配置化
+
+## 配置文件
+- config/levels.json — 关卡配置
+- config/events.json — 事件权重
+- config/order_weights.json — 订单权重
+- config/shop.json — 商店物品
 
 ## 技术建议
 - 引擎：Unity

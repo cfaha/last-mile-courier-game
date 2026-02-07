@@ -24,6 +24,7 @@ public partial class FlowController : MonoBehaviour
     public MainMenuUI MainMenuUI;
     public LevelResultPanel LevelResultPanel;
     public TimeStats TimeStats;
+    public StatsReporter StatsReporter;
 
     public TextAsset LevelConfigJson;
     public TextAsset EventWeightsJson;
@@ -162,6 +163,7 @@ public partial class FlowController : MonoBehaviour
         }
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score, coins);
+        StatsReporter?.ReportLevel(CurrentLevelId, score, coins);
         if (DeliveryProcessor != null && LevelResultPanel != null)
         {
             LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score);
