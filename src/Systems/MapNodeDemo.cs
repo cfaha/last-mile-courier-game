@@ -10,7 +10,8 @@ public class MapNodeDemo : MonoBehaviour
         Layout?.ArrangeInCircle();
         for (int i = 0; i < Labels.Length; i++)
         {
-            Labels[i]?.Bind($"{i + 1}");
+            var type = (OrderType)(i % 5);
+            Labels[i]?.Bind($"{i + 1}", type);
         }
     }
 }

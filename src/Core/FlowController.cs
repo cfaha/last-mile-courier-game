@@ -127,6 +127,7 @@ public partial class FlowController : MonoBehaviour
     {
         UIController.ShowDelivery();
         DeliveryProcessor?.Init(OrderSystem.ActiveOrders.Count, 500);
+        FindObjectOfType<UIStateMachine>()?.ShowDelivery();
         DeliverySequence?.SetSequence(UIController.RoutePlanningUI.DragController.CurrentOrderIds);
         if (DeliverySimulator != null)
         {
@@ -162,6 +163,7 @@ public partial class FlowController : MonoBehaviour
         }
         bool failed = DeliveryProcessor != null && DeliveryProcessor.IsFailed();
         UIController.ShowResult();
+        FindObjectOfType<UIStateMachine>()?.ShowResult();
         UIController.ResultUI.ShowResult(score, coins, failed);
         StatsReporter?.ReportLevel(CurrentLevelId, score, coins, failed);
         if (DeliveryProcessor != null && LevelResultPanel != null)

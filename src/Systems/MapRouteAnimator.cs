@@ -9,6 +9,7 @@ public class MapRouteAnimator : MonoBehaviour
     public void Play()
     {
         _t = 0f;
+        if (Line != null) Line.startColor = Line.endColor = Color.white;
     }
 
     private void Update()
