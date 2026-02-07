@@ -53,6 +53,11 @@ public class OrderListController : MonoBehaviour
         // update hierarchy order
         _items[index].transform.SetSiblingIndex(index);
         _items[target].transform.SetSiblingIndex(target);
+        // refresh indices
+        for (int i = 0; i < _items.Count; i++)
+        {
+            if (_items[i].DragItem != null) _items[i].DragItem.SetIndex(i);
+        }
     }
 
     private void Clear()
