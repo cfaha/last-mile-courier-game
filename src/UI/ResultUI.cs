@@ -6,6 +6,6 @@ public class ResultUI : MonoBehaviour
     {
         string rating = RatingHelper.GetRating(score);
         Debug.Log($"Result score={score:F2} rating={rating} coins={coins}");
-        // TODO: show score and rewards
+        // TODO: show score and rewards in UI
     }
 }
