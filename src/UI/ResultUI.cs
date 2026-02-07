@@ -5,6 +5,7 @@ public class ResultUI : MonoBehaviour
     public Text ScoreText;
     public Text CoinText;
     public Text RatingText;
+    public Text HintText;
 
     public FlowController FlowController;
 
@@ -15,6 +16,7 @@ public class ResultUI : MonoBehaviour
         if (ScoreText != null) ScoreText.text = $"{score:F2}";
         if (CoinText != null) CoinText.text = $"+{coins}";
         if (RatingText != null) RatingText.text = rating;
+        BindButtons(HintText);
     }
 
     public void OnNextLevel()
