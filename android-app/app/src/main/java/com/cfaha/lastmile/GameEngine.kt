@@ -14,6 +14,9 @@ class GameEngine(
     var onTimeRate: Float = 1f
     var efficiency: Float = 1f
     var satisfaction: Float = 1f
+    var dailyCompleted: Int = 0
+    var dailyTarget: Int = 5
+    var dailyRewardClaimed: Boolean = false
 
     fun loadLevel(levelId: Int): LevelConfig {
         currentLevelId = levelId
@@ -38,6 +41,7 @@ class GameEngine(
         val travelSeconds = (next.distanceKm * 180f / max(0.1f, speedMultiplier)).toInt()
         val onTime = travelSeconds <= next.timeLimit
         next.delivered = true
+        dailyCompleted += 1
         if (!onTime) {
             onTimeRate = (onTimeRate - 0.1f).coerceAtLeast(0f)
             satisfaction = (satisfaction - 0.05f).coerceAtLeast(0f)

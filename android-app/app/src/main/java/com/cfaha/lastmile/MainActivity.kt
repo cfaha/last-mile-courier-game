@@ -54,6 +54,7 @@ fun App() {
                 Screen.Main -> {
                     Text("关卡：${engine.currentLevelId}")
                     Text("金币：${engine.coins}")
+                    Text("任务：${engine.dailyCompleted}/${engine.dailyTarget}")
                     Spacer(modifier = Modifier.height(12.dp))
                     Button(onClick = {
                         level = engine.loadLevel(engine.currentLevelId)
@@ -65,6 +66,7 @@ fun App() {
                 }
                 Screen.Planning -> {
                     Text("规划页 - 订单列表")
+                    MapView(engine.orders)
                     LazyColumn(modifier = Modifier.weight(1f)) {
                         items(engine.orders) { o ->
                             Card(Modifier.fillMaxWidth().padding(4.dp)) {
@@ -78,7 +80,17 @@ fun App() {
                             }
                         }
                     }
-                    Button(onClick = { screen = Screen.Delivery }) { Text("开始配送") }
+                    Row {
+                        Button(onClick = {
+                            if (engine.orders.size > 1) {
+                                val tmp = engine.orders[0]
+                                engine.orders[0] = engine.orders[1]
+                                engine.orders[1] = tmp
+                            }
+                        }) { Text("交换前两单") }
+                        Spacer(Modifier.width(8.dp))
+                        Button(onClick = { screen = Screen.Delivery }) { Text("开始配送") }
+                    }
                 }
                 Screen.Delivery -> {
                     Text("配送中")
@@ -99,6 +111,10 @@ fun App() {
                             val score = engine.calcScore()
                             val coins = engine.calcReward()
                             engine.coins += coins
+                            if (engine.dailyCompleted >= engine.dailyTarget && !engine.dailyRewardClaimed) {
+                                engine.coins += 200
+                                engine.dailyRewardClaimed = true
+                            }
                             result = GameResult(
                                 delivered = engine.orders.count { it.delivered },
                                 total = engine.orders.size,
@@ -117,7 +133,7 @@ fun App() {
                     if (r != null) {
                         Text("结算：${r.delivered}/${r.total} 评分 ${String.format("%.2f", r.score)}")
                         Text("准时率 ${(r.onTimeRate * 100).toInt()}% 效率 ${(r.efficiency * 100).toInt()}%")
-                        Text("金币 +${r.coinsEarned}，总计 ${engine.coins}")
+                        Text("金币 +${r.coinsEarned}，总计 ${engine.coins}，任务奖励 ${if (engine.dailyRewardClaimed) "+200" else "0"}")
                         Text(if (r.failed) "失败" else "成功", color = if (r.failed) Color.Red else Color(0xFF2E7D32))
                         Spacer(modifier = Modifier.height(8.dp))
                         Row {
