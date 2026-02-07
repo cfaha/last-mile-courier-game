@@ -44,6 +44,13 @@ public class FlowController : MonoBehaviour
         if (DeliverySimulator != null)
         {
             DeliverySimulator.OnAllDelivered += FinishDelivery;
+            DeliverySimulator.OnDelivered += (_) =>
+            {
+                if (DeliverySequence != null)
+                {
+                    UIController.DeliveryUI.UpdateRemaining(DeliverySequence.Remaining);
+                }
+            };
         }
     }
 
