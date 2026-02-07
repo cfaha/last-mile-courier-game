@@ -12,6 +12,7 @@ public class ShopUI : MonoBehaviour
 
     private void Start()
     {
+        OwnedItems.Load(SaveManager.LoadOwned());
         LoadAndBuild();
     }
 
@@ -40,7 +41,10 @@ public class ShopUI : MonoBehaviour
     {
         if (OwnedItems.IsOwned(item.Id)) return;
         bool ok = ShopSystem != null && ShopSystem.Buy(item, CurrencySystem);
-        if (ok) OwnedItems.Add(item.Id);
+        if (ok) {
+            OwnedItems.Add(item.Id);
+            SaveManager.SaveOwned(OwnedItems.ToCsv());
+        }
         ToastUI?.Show(ok ? "购买成功" : "余额不足");
         LoadAndBuild();
     }

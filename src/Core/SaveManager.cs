@@ -5,6 +5,7 @@ public class SaveManager
     private const string LevelKey = "lm_level";
     private const string CoinKey = "lm_coins";
     private const string TaskKey = "lm_tasks";
+    private const string OwnedKey = "lm_owned";
 
     public static void SaveLevel(int level)
     {
@@ -46,5 +47,16 @@ public class SaveManager
             int.TryParse(parts[1], out dayStamp);
             claimed = parts[2] == "1";
         }
+    }
+
+    public static void SaveOwned(string csv)
+    {
+        PlayerPrefs.SetString(OwnedKey, csv);
+        PlayerPrefs.Save();
+    }
+
+    public static string LoadOwned()
+    {
+        return PlayerPrefs.GetString(OwnedKey, "");
     }
 }

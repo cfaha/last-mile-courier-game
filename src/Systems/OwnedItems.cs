@@ -10,4 +10,20 @@ public class OwnedItems
     {
         if (!string.IsNullOrEmpty(id)) _items.Add(id);
     }
+
+    public void Load(string csv)
+    {
+        _items.Clear();
+        if (string.IsNullOrEmpty(csv)) return;
+        var parts = csv.Split(',');
+        foreach (var p in parts)
+        {
+            if (!string.IsNullOrEmpty(p)) _items.Add(p);
+        }
+    }
+
+    public string ToCsv()
+    {
+        return string.Join(",", _items);
+    }
 }

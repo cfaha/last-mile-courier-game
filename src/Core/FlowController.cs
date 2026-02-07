@@ -44,6 +44,7 @@ public partial class FlowController : MonoBehaviour
             CurrencySystem.OnChanged += (coins) =>
             {
                 CurrencyUI.Bind(coins);
+                MainMenuUI?.BindCoins(coins);
                 SaveManager.SaveCoins(coins);
             };
             CurrencySystem.SetCoins(SaveManager.LoadCoins(0));
