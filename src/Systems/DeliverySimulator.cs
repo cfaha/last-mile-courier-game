@@ -13,6 +13,7 @@ public class DeliverySimulator : MonoBehaviour
     public TaskSystem TaskSystem;
     public TaskUI TaskUI;
     public MainMenuUI MainMenuUI;
+    public MapNodeLabel[] MapLabels;
 
     public void DeliverNext()
     {
@@ -32,10 +33,22 @@ public class DeliverySimulator : MonoBehaviour
             TaskUI.Bind(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
             MainMenuUI?.BindTask(TaskSystem.DailyCompleted, TaskSystem.DailyDeliveriesTarget);
         }
+        HighlightNode(orderId.Value);
         OnDelivered?.Invoke(orderId.Value);
         if (Sequence != null && Sequence.Remaining <= 0)
         {
             OnAllDelivered?.Invoke();
+        }
+    }
+
+    private void HighlightNode(int orderId)
+    {
+        if (MapLabels == null) return;
+        int idx = Mathf.Clamp(orderId - 1, 0, MapLabels.Length - 1);
+        var label = MapLabels[idx];
+        if (label != null && label.Dot != null)
+        {
+            label.Dot.color = Color.white;
         }
     }
 

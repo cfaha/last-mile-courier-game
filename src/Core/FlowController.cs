@@ -116,6 +116,7 @@ public partial class FlowController : MonoBehaviour
         }
         OrderSystem.GenerateOrders(orders, timeLimit);
         UIController.ShowRoutePlanning();
+        FindObjectOfType<UIStateMachine>()?.ShowPlanning();
         UIController.RoutePlanningUI.BindOrders(OrderSystem.ActiveOrders, OrderSystem.RuntimeOrders);
         if (LevelInfoUI != null)
         {

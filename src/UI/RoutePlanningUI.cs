@@ -20,10 +20,12 @@ public class RoutePlanningUI : MonoBehaviour
 
     public FlowController FlowController;
     public TutorialSteps TutorialSteps;
+    public UIStateMachine UIStateMachine;
 
     public void OnStartDelivery()
     {
         TutorialSteps?.OnStartDeliveryClicked();
         FlowController?.StartDelivery();
+        UIStateMachine?.ShowDelivery();
     }
 }
