@@ -72,6 +72,8 @@ fun App() {
                                     Text("#${o.id} ${o.type}")
                                     Spacer(Modifier.width(8.dp))
                                     Text("${o.distanceKm}km / ${o.timeLimit}s")
+                                    Spacer(Modifier.weight(1f))
+                                    Text(if (o.delivered) "已送" else "待送", color = if (o.delivered) Color.Green else Color.Gray)
                                 }
                             }
                         }
@@ -84,8 +86,8 @@ fun App() {
                     Button(onClick = {
                         val (order, done) = engine.deliverNext(engine.efficiency)
                         if (order == null) return@Button
-                        if (Math.random() < level.eventChance) {
-                            val e = engine.pickEvent(level)
+                        if (Math.random() < level.eventChance || level.forcedEvent.isNotEmpty()) {
+                            val e = if (level.forcedEvent.isNotEmpty()) level.forcedEvent else engine.pickEvent(level)
                             eventText = when (e) {
                                 "Gate" -> "门禁：等待或绕行"
                                 "Rain" -> "暴雨：速度下降"
@@ -116,7 +118,7 @@ fun App() {
                         Text("结算：${r.delivered}/${r.total} 评分 ${String.format("%.2f", r.score)}")
                         Text("准时率 ${(r.onTimeRate * 100).toInt()}% 效率 ${(r.efficiency * 100).toInt()}%")
                         Text("金币 +${r.coinsEarned}，总计 ${engine.coins}")
-                        Text(if (r.failed) "失败" else "成功")
+                        Text(if (r.failed) "失败" else "成功", color = if (r.failed) Color.Red else Color(0xFF2E7D32))
                         Spacer(modifier = Modifier.height(8.dp))
                         Row {
                             Button(onClick = {

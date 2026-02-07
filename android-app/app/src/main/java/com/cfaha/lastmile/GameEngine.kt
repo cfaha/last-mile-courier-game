@@ -76,6 +76,14 @@ class GameEngine(
         }
     }
 
+    fun applyForcedEvent(type: String) {
+        when (type) {
+            "Gate" -> applyEvent(0.1f, 0.05f)
+            "Rain" -> applyEvent(0.15f, 0.02f)
+            "Traffic" -> applyEvent(0.2f, 0.04f)
+        }
+    }
+
     private fun pickType(): OrderType {
         val r = Random.nextFloat()
         val n = orderWeights.normal
