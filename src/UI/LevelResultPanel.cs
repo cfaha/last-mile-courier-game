@@ -8,14 +8,16 @@ public class LevelResultPanel : MonoBehaviour
     public Text TimeText;
     public Text LevelText;
     public Text OnTimeText;
+    public Text TotalCoinText;
 
-    public void Bind(int delivered, int total, float score, int levelId = 0)
+    public void Bind(int delivered, int total, float score, int levelId = 0, int totalCoins = -1)
     {
         if (SummaryText != null)
         {
             SummaryText.text = $"完成 {delivered}/{total} 评分 {score:F2}";
         }
         if (LevelText != null && levelId > 0) LevelText.text = $"关卡 {levelId}";
+        if (TotalCoinText != null && totalCoins >= 0) TotalCoinText.text = $"金币 {totalCoins}";
     }
 
     public void BindDetail(float onTime, float efficiency)

@@ -23,6 +23,7 @@ public partial class FlowController : MonoBehaviour
     public TutorialScript TutorialScript;
     public MainMenuUI MainMenuUI;
     public LevelResultPanel LevelResultPanel;
+    public FailureUI FailureUI;
     public TimeStats TimeStats;
     public StatsReporter StatsReporter;
     public NewbieFlow NewbieFlow;
@@ -164,13 +165,18 @@ public partial class FlowController : MonoBehaviour
         StatsReporter?.ReportLevel(CurrentLevelId, score, coins);
         if (DeliveryProcessor != null && LevelResultPanel != null)
         {
-            LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score, CurrentLevelId);
+            int totalCoins = CurrencySystem != null ? CurrencySystem.Coins : -1;
+            LevelResultPanel.Bind(DeliveryProcessor.State.DeliveredOrders, DeliveryProcessor.State.TotalOrders, score, CurrentLevelId, totalCoins);
             LevelResultPanel.BindDetail(ScoringSystem.OnTimeRate, ScoringSystem.RouteEfficiency);
         }
         if (TimeStats != null && TimerSystem != null)
         {
             TimeStats.SetUsed(TimerSystem.TotalSeconds - TimerSystem.RemainingSeconds);
             LevelResultPanel?.BindTime(TimeStats.UsedSeconds);
+        }
+        if (FailureUI != null && DeliveryProcessor != null && DeliveryProcessor.IsFailed())
+        {
+            FailureUI.Show("未完成所有订单");
         }
     }
 }

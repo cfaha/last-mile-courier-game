@@ -24,6 +24,11 @@ public class DeliveryProcessor : MonoBehaviour
         }
     }
 
+    public bool IsFailed()
+    {
+        return State.DeliveredOrders < State.TotalOrders;
+    }
+
     public float SpeedMultiplier = 1f;
 
     public void ApplyEventPenalty(float timePenalty, float satisfactionPenalty)
