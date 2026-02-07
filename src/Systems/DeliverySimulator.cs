@@ -8,6 +8,8 @@ public class DeliverySimulator : MonoBehaviour
     public float SpeedMultiplier = 1f;
     public OrderRuntime[] Orders;
 
+    public System.Action OnAllDelivered;
+
     public void DeliverNext()
     {
         int? orderId = Sequence?.NextOrder();
@@ -19,6 +21,11 @@ public class DeliverySimulator : MonoBehaviour
         bool onTime = travelSeconds <= order.TimeLimitSeconds;
         Processor?.MarkDelivered(onTime);
         Debug.Log($"Delivered order #{orderId} travel={travelSeconds}s onTime={onTime} speed={SpeedMultiplier:F2}");
+
+        if (Sequence != null && Sequence.Remaining <= 0)
+        {
+            OnAllDelivered?.Invoke();
+        }
     }
 
     private OrderRuntime FindOrder(int orderId)

@@ -37,6 +37,10 @@ public class FlowController : MonoBehaviour
                 }
             };
         }
+        if (DeliverySimulator != null)
+        {
+            DeliverySimulator.OnAllDelivered += FinishDelivery;
+        }
     }
 
     public void StartPlanning()

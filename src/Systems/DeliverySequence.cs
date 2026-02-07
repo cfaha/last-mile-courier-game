@@ -6,6 +6,8 @@ public class DeliverySequence : MonoBehaviour
     public int CurrentIndex;
     public List<int> OrderIds = new List<int>();
 
+    public int Remaining => OrderIds.Count - CurrentIndex;
+
     public void SetSequence(List<int> orderIds)
     {
         OrderIds = new List<int>(orderIds);
