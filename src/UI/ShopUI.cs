@@ -27,6 +27,11 @@ public class ShopUI : MonoBehaviour
             var ui = Object.Instantiate(ItemPrefab, ListRoot);
             bool owned = OwnedItems.IsOwned(item.Id);
             ui.Bind(item, owned);
+            if (ui.BuyButton != null)
+            {
+                ui.BuyButton.onClick.RemoveAllListeners();
+                ui.BuyButton.onClick.AddListener(() => OnBuy(item));
+            }
         }
     }
 

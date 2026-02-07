@@ -7,6 +7,7 @@ public class LevelResultPanel : MonoBehaviour
     public Text DetailText;
     public Text TimeText;
     public Text LevelText;
+    public Text OnTimeText;
 
     public void Bind(int delivered, int total, float score, int levelId = 0)
     {
@@ -22,6 +23,10 @@ public class LevelResultPanel : MonoBehaviour
         if (DetailText != null)
         {
             DetailText.text = $"准时率 {onTime:P0} / 效率 {efficiency:P0}";
+        }
+        if (OnTimeText != null)
+        {
+            OnTimeText.text = onTime >= 0.99f ? "全程准时" : "有超时";
         }
     }
 

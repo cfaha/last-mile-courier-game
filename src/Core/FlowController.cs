@@ -157,7 +157,7 @@ public partial class FlowController : MonoBehaviour
         {
             CurrencySystem?.AddCoins(200);
             TaskSystem.MarkRewardClaimed();
-            TaskRewardUI?.Show("每日任务完成 +200");
+            ToastUI?.Show("每日任务完成 +200");
         }
         UIController.ShowResult();
         UIController.ResultUI.ShowResult(score, coins);
